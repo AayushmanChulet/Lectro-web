@@ -10,7 +10,7 @@ export default function Summary() {
     }, []);
 
     const fetchSummary = async () => {
-        const summaryResponse = await axios.get(`http://localhost:3000/api/v1/app/summary/${"i4b_ETwPoTE"}`);
+        const summaryResponse  = await axios.get(`http://localhost:3000/api/v1/app/summary/${"i4b_ETwPoTE"}`);
 
         if(!summaryResponse.status){
             console.log("something went wrong");

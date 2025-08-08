@@ -52,8 +52,6 @@ export default function Chat() {
 
     
   };
-
-  // Handle Enter key press
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSendMessage();

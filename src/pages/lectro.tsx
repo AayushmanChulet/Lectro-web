@@ -1,6 +1,7 @@
 import Chat from "@/components/chat/chat";
 import FlashCard from "@/components/flashCard/flashcard";
 import Notes from "@/components/notes/notes";
+import Quiz from "@/components/quiz/quiz";
 import Summary from "@/components/summary/summary";
 import { useEffect, useRef, useState } from "react"
 import { useLocation, useParams } from "react-router";
@@ -45,7 +46,7 @@ export default function Lectro(){
           />
         </div>
         <div className="w-full md:w-2/5 bg-blue-200 rounded-lg shadow-lg p-6 flex flex-col">
-        <FlashCard/>
+        <Quiz/>
         </div>
       </main>
 }
