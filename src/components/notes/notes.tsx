@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Notes() {
-
+export default function Notes({videoId} : {videoId : string | undefined}) {
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
     const [notes, setNotes] = useState("");
 
     useEffect(()=> {
@@ -10,7 +10,7 @@ export default function Notes() {
     }, []);
 
     const fetchNotes = async () => {
-        const notesResponse = await axios.get(`http://localhost:3000/api/v1/app/notes/${"i4b_ETwPoTE"}`);
+        const notesResponse = await axios.get(`${BACKEND_URL}/api/v1/app/notes/${videoId}`);
 
         if(!notesResponse.status){
             console.log("something went wrong");

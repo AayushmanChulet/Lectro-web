@@ -5,7 +5,7 @@ import Quiz from "@/components/quiz/quiz";
 import Summary from "@/components/summary/summary";
 import modeContext from "@/context/modeContext";
 import { useContext, useEffect, useRef, useState } from "react"
-import { useLocation, useParams } from "react-router";
+import {  useParams } from "react-router";
 
 export default function Lectro(){
 
@@ -48,11 +48,11 @@ export default function Lectro(){
           />
         </div>
         <div className="w-full md:w-2/5 bg-blue-200 rounded-lg shadow-lg p-6 flex flex-col">
-        {mode == 'chat' && <Chat />}
-        {mode == 'flashcard' && <FlashCard />}
-        {mode == 'notes' && <Notes />}
-        {mode == 'quiz' && <Quiz />}
-        {mode == 'summary' && <Summary />}
+        {mode == 'chat' && <Chat videoId={params.url}/>}
+        {mode == 'flashcard' && <FlashCard videoId={params.url}/>}
+        {mode == 'notes' && <Notes videoId={params.url}/>}
+        {mode == 'quiz' && <Quiz videoId={params.url}/>}
+        {mode == 'summary' && <Summary videoId={params.url}/>}
         </div>
       </main>
 } 

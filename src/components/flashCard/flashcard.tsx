@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import axios from "axios";
 
-export default function FlashCard( ) {
-
+export default function FlashCard({videoId} : {videoId : string | undefined} ) {
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
     const [cards, setCards] = useState([])
 
     useEffect(() => {
@@ -11,7 +11,7 @@ export default function FlashCard( ) {
     }, [])
 
     const fetchCards = async ( ) => {
-        const cardsResponse : any  = await axios.get(`http://localhost:3000/api/v1/app/flashcards/${"i4b_ETwPoTE"}`);
+        const cardsResponse : any  = await axios.get(`${BACKEND_URL}}/api/v1/app/flashcards/${videoId}`);
 
         if(!cardsResponse.status){
             console.log("something went wrong");

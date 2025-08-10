@@ -4,7 +4,6 @@ import axios from "axios";
 import { toaster } from "../ui/toaster";
 import { LoaderOne } from "@/components/ui/loader";
 
-
 interface options {
   code: "a" | "b" | "c" | "d";
   value: string;
@@ -16,7 +15,7 @@ interface quiz {
   answer: "a" | "b" | "c" | "d";
 }
 
-export default function Quiz() {
+export default function Quiz( {videoId} : {videoId : string | undefined}) {
   const [quiz, setQuiz] = useState<quiz[] | []>([]);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [score, setScore] = useState<number |  undefined>(undefined);
@@ -24,6 +23,8 @@ export default function Quiz() {
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState("");
   const [isDone, setIsDone] = useState(false);
+
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   useEffect(() => {
     fetchQuiz();
@@ -34,7 +35,7 @@ export default function Quiz() {
     setErrors(null);
     try {
       const quizResponse: any = await axios.get(
-        `http://localhost:3000/api/v1/app/quiz/${"i4b_ETwPoTE"}`
+        `${BACKEND_URL}/api/v1/app/quiz/${videoId}`
       );
 
       if (!quizResponse.status) {

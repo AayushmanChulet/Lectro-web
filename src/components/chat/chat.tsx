@@ -8,7 +8,8 @@ interface ChatMessage {
   message: string;
 }
 
-export default function Chat() {
+export default function Chat({videoId} : {videoId : string | undefined}) {
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       party: "bot",
@@ -37,8 +38,8 @@ export default function Chat() {
     };
     const lastChats = messages.slice(-5);
     setMessages((prev) => [...prev, newMessage]);
-    const chatResponse  = await axios.post("http://localhost:3000/api/v1/app/chat", {
-            link : `https://www.youtube.com/watch?v=${"i4b_ETwPoTE"}`,
+    const chatResponse  = await axios.post(`${BACKEND_URL}/api/v1/app/chat`, {
+            link : `https://www.youtube.com/watch?v=${videoId}`,
             lastChats ,
             currMessage : input
         })
