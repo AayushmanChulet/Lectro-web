@@ -19,10 +19,11 @@ interface quiz {
 export default function Quiz() {
   const [quiz, setQuiz] = useState<quiz[] | []>([]);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
-  const [score, setScore] = useState(null);
+  const [score, setScore] = useState<number |  undefined>(undefined);
   const [optionSelected, setOptionSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState("");
+  const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
     fetchQuiz();

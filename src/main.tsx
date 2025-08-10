@@ -8,7 +8,7 @@ import {
 import Layout from './layout/layout.tsx';
 import Lectro from './pages/lectro.tsx';
 import Landing from './pages/index.tsx';
-import { Provider } from './components/ui/provider.tsx';
+import ModeProvider from './context/modeProvider.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +30,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router}/> 
+    <ModeProvider>
+      <RouterProvider router={router}/> 
+    </ModeProvider>
   </StrictMode>,
 )

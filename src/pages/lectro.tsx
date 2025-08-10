@@ -3,7 +3,8 @@ import FlashCard from "@/components/flashCard/flashcard";
 import Notes from "@/components/notes/notes";
 import Quiz from "@/components/quiz/quiz";
 import Summary from "@/components/summary/summary";
-import { useEffect, useRef, useState } from "react"
+import modeContext from "@/context/modeContext";
+import { useContext, useEffect, useRef, useState } from "react"
 import { useLocation, useParams } from "react-router";
 
 export default function Lectro(){
@@ -11,6 +12,7 @@ export default function Lectro(){
   const iframeContainerRef = useRef(null)
   const [iframeSize, setIframeSize] = useState({ width: '100%', height: '100%' })
 	const params = useParams();
+  const { mode } = useContext(modeContext)
 
 
   useEffect(() => {
@@ -46,7 +48,11 @@ export default function Lectro(){
           />
         </div>
         <div className="w-full md:w-2/5 bg-blue-200 rounded-lg shadow-lg p-6 flex flex-col">
-        <Quiz/>
+        {mode == 'chat' && <Chat />}
+        {mode == 'flashcard' && <FlashCard />}
+        {mode == 'notes' && <Notes />}
+        {mode == 'quiz' && <Quiz />}
+        {mode == 'summary' && <Summary />}
         </div>
       </main>
-}
+} 
