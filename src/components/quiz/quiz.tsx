@@ -15,6 +15,10 @@ interface quiz {
   answer: "a" | "b" | "c" | "d";
 }
 
+interface quizResponse {
+    data: quiz[]
+}
+
 export default function Quiz( {videoId} : {videoId : string | undefined}) {
   const [quiz, setQuiz] = useState<quiz[] | []>([]);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -34,7 +38,7 @@ export default function Quiz( {videoId} : {videoId : string | undefined}) {
     setIsLoading(true);
     setErrors(null);
     try {
-      const quizResponse: any = await axios.get(
+      const quizResponse = await axios.get<quizResponse>(
         `${BACKEND_URL}/api/v1/app/quiz/${videoId}`
       );
 

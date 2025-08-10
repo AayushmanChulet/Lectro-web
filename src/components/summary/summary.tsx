@@ -25,7 +25,7 @@ export default function Summary({videoId} : {videoId : string | undefined}) {
         } catch (error) {
             console.error("Error fetching summary:", error);
         }
-    }, [videoId]);
+    }, [videoId, BACKEND_URL]);
 
     useEffect(() => {
         fetchSummary();

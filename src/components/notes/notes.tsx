@@ -1,16 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+interface NotesResponse{
+    data : string
+}
+
 export default function Notes({videoId} : {videoId : string | undefined}) {
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
     const [notes, setNotes] = useState("");
 
     useEffect(()=> {
         fetchNotes();
-    }, []);
+    }, [videoId]);
 
     const fetchNotes = async () => {
-        const notesResponse = await axios.get(`${BACKEND_URL}/api/v1/app/notes/${videoId}`);
+        const notesResponse = await axios.get<NotesResponse>(`${BACKEND_URL}/api/v1/app/notes/${videoId}`);
 
         if(!notesResponse.status){
             console.log("something went wrong");

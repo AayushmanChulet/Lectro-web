@@ -1,23 +1,32 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import axios from "axios";
 
+interface card {
+    question : string,
+    answer : string
+}
+
+interface CardsResponse {
+    data : card[]
+}
+
 export default function FlashCard({videoId} : {videoId : string | undefined} ) {
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-    const [cards, setCards] = useState([])
+    const [cards, setCards] = useState<card[]>([])
 
     useEffect(() => {
         fetchCards();
     }, [])
 
-    const fetchCards = async ( ) => {
-        const cardsResponse : any  = await axios.get(`${BACKEND_URL}}/api/v1/app/flashcards/${videoId}`);
+    const fetchCards = useCallback(async ( ) => {
+        const cardsResponse = await axios.get<CardsResponse>(`${BACKEND_URL}}/api/v1/app/flashcards/${videoId}`);
 
         if(!cardsResponse.status){
             console.log("something went wrong");
         }
         setCards(cardsResponse.data.data);
-    }
+    }, [BACKEND_URL, videoId]);
 
   const [idx, setIdx] = useState(0);
 

@@ -7,7 +7,7 @@ interface modeContextType {
 
 const modeContext = createContext<modeContextType>({
   mode: "chat",
-  toggleMode: (modeType : 'chat' | 'notes' | 'summary' | 'quiz' | 'flashcard') => {},
+  toggleMode: () => {},
 });
 
 export default modeContext;
