@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { toaster } from "../ui/toaster";
@@ -21,20 +21,17 @@ interface quizResponse {
 
 export default function Quiz( {videoId} : {videoId : string | undefined}) {
   const [quiz, setQuiz] = useState<quiz[] | []>([]);
-  const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
-  const [score, setScore] = useState<number |  undefined>(undefined);
-  const [optionSelected, setOptionSelected] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errors, setErrors] = useState("");
-  const [isDone, setIsDone] = useState(false);
+  const [currentQuestionIdx, setCurrentQuestionIdx] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
+  const [optionSelected, setOptionSelected] = useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [errors, setErrors] = useState<string | null>("");
+  const [isDone, setIsDone] = useState<boolean>(false);
+//   const [isStarted, setIsStarted] = useState<boolean>(false);
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  useEffect(() => {
-    fetchQuiz();
-  }, []);
-
-  const fetchQuiz = async () => {
+  const fetchQuiz = useCallback(async () => {
     setIsLoading(true);
     setErrors(null);
     try {
@@ -54,7 +51,11 @@ export default function Quiz( {videoId} : {videoId : string | undefined}) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [BACKEND_URL, videoId]);
+
+  useEffect(() => {
+    fetchQuiz();
+  }, [fetchQuiz]);
 
   const handleSubmit = () => {
     if (!optionSelected) {
@@ -69,13 +70,9 @@ export default function Quiz( {videoId} : {videoId : string | undefined}) {
     }
     if (currentQuestionIdx < quiz.length - 1) {
       setCurrentQuestionIdx((prev) => prev + 1);
-      setOptionSelected(null);
+      setOptionSelected(undefined);
     } else {
-      alert(
-        `Quiz completed! Your score: ${score + (selected?.isCorrect ? 1 : 0)}/${
-          quiz.length
-        }`
-      );
+      setIsDone(true);
     }
   };
 

@@ -1,42 +1,52 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { LoaderOne } from "../ui/loader";
 
 interface SummaryResponse {
-    data: string;
+  data: string;
 }
 
-export default function Summary({videoId} : {videoId : string | undefined}) {
+export default function Summary({ videoId }: { videoId: string | undefined }) {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const [summary, setSummary] = useState<string>("");
+  const [errors, setErrors] = useState<string | null>(null);
 
-    const [summary, setSummary] = useState("");
+  const fetchSummary = useCallback(async () => {
+    if (!videoId) return;
 
-    const fetchSummary = useCallback(async () => {
-        if (!videoId) return;
-        
-        try {
-            const summaryResponse = await axios.get<SummaryResponse>(`${BACKEND_URL}/api/v1/app/summary/${videoId}`);
+    try {
+      try {
+        const summaryResponse = await axios.get<SummaryResponse>(
+          `${BACKEND_URL}/api/v1/app/summary/${videoId}`
+        );
 
-            if (summaryResponse.status !== 200) {
-                console.log("Failed to fetch summary:", summaryResponse.status);
-                return;
-            }
-            setSummary(summaryResponse.data?.data || "");
-        } catch (error) {
-            console.error("Error fetching summary:", error);
+        if (summaryResponse.status !== 200) {
+          console.log("Failed to fetch summary:", summaryResponse.status);
+          throw new Error("Request failed");
+          return;
         }
-    }, [videoId, BACKEND_URL]);
+        setSummary(summaryResponse.data?.data || "");
+      } catch (err) {
+        setErrors("Error fetching summary");
+        console.log("Error fetching summary : ", err);
+      }
+    } catch (error) {
+      console.error("Error fetching summary:", error);
+    }
+  }, [videoId, BACKEND_URL]);
 
-    useEffect(() => {
-        fetchSummary();
-    }, [fetchSummary]);
+  useEffect(() => {
+    fetchSummary();
+  }, [fetchSummary]);
 
-    return <div className="h-full w-full flex flex-col items-center justify-center gap-6 p-6 bg-gray-50">
-        <h2 className="text-3xl font-bold text-gray-800">
-            Video Summary
-        </h2>
-        <div>
-            {summary}
-        </div>
+  return (
+    <div className="h-full w-full flex flex-col items-center justify-center gap-6 p-6 ">
+      <h2 className="text-3xl font-bold text-gray-800">Video Summary</h2>
+      <div className="w-full h-full bg-white rounded-2xl flex justify-center items-center">
+        {summary}
+        {summary.length > 0 ? !errors ? summary : errors : <LoaderOne />}
+      </div>
     </div>
+  );
 }

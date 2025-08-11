@@ -8,8 +8,8 @@ export default function NavBar() {
     const toggle  = ( mode : 'chat' | 'notes' | 'summary' | 'quiz' | 'flashcard' ) => {
         toggleMode(mode);
     }
-    return <nav className="w-full flex justify-between items-center px-8 py-4 text-xl ">
-        <span className="">
+    return <nav className="min-w-full px-3 lg:px-12 py-5 min-h-14 flex flex-row justify-between items-center text-xl ">
+        <span className=" leading-[0.97] font-bold ">
             Lectro
         </span>
         <span className="flex gap-7 items-center justify-around">
@@ -19,5 +19,6 @@ export default function NavBar() {
             <span onClick={() => toggle("quiz")} className={cn(`${mode == 'quiz' ? "underline-offset-4 underline" : ""}`, "hover:cursor-pointer")}>Quiz</span>
             <span onClick={() => toggle("flashcard")} className={cn(`${mode == 'flashcard' ? "underline-offset-4 underline" : ""}`, "hover:cursor-pointer")}>FlashCard</span>
         </span>
+        
     </nav>
 }

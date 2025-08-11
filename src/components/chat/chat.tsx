@@ -64,7 +64,7 @@ export default function Chat({videoId} : {videoId : string | undefined}) {
   };
 
   return (
-    <div className="w-full h-[80vh] flex flex-col items-center justify-between rounded-2xl overflow-hidden bg-gray-50 shadow-lg">
+    <div className="w-full h-full flex flex-col items-center justify-between rounded-2xl overflow-hidden bg-gray-50 shadow-lg">
       <div
         ref={chatContainerRef}
         className="flex-1 w-full overflow-y-auto p-4 space-y-4"

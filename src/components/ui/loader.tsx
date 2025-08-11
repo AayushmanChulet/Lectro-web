@@ -22,7 +22,7 @@ export const LoaderOne = () => {
           y: [0, 10, 0],
         }}
         transition={transition(0)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
+        className="h-4 w-4 rounded-full border border-blue-400 bg-gradient-to-b from-blue-500 to-blue-400"
       />
       <motion.div
         initial={{
@@ -32,7 +32,7 @@ export const LoaderOne = () => {
           y: [0, 10, 0],
         }}
         transition={transition(1)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
+        className="h-4 w-4 rounded-full border border-blue-400 bg-gradient-to-b from-blue-500 to-blue-400"
       />
       <motion.div
         initial={{
@@ -42,7 +42,7 @@ export const LoaderOne = () => {
           y: [0, 10, 0],
         }}
         transition={transition(2)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
+        className="h-4 w-4 rounded-full border border-blue-400 bg-gradient-to-b from-blue-500 to-blue-400"
       />
     </div>
   );
@@ -68,7 +68,7 @@ export const LoaderTwo = () => {
         animate={{
           x: [0, 20, 0],
         }}
-        className="h-4 w-4 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
+        className="h-4 w-4 rounded-full bg-blue-400 shadow-md dark:bg-neutral-500"
       />
       <motion.div
         initial={{
@@ -78,7 +78,7 @@ export const LoaderTwo = () => {
           x: [0, 20, 0],
         }}
         transition={transition(0.4)}
-        className="h-4 w-4 -translate-x-2 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
+        className="h-4 w-4 -translate-x-2 rounded-full bg-blue-400 shadow-md dark:bg-neutral-500"
       />
       <motion.div
         initial={{
@@ -88,7 +88,7 @@ export const LoaderTwo = () => {
           x: [0, 20, 0],
         }}
         transition={transition(0.8)}
-        className="h-4 w-4 -translate-x-4 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
+        className="h-4 w-4 -translate-x-4 rounded-full bg-blue-400 shadow-md dark:bg-neutral-500"
       />
     </div>
   );

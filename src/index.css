@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  --color-text: #eae9fc;
+  --color-background: #010104;
+  --color-primary: #3a31d8;
+  --color-secondary: #020024;
+  --color-accent: #0600c2;
+  --linearPrimarySecondary: linear-gradient(#3a31d8, #020024);
+  --linearPrimaryAccent: linear-gradient(#3a31d8, #0600c2);
+  --linearSecondaryAccent: linear-gradient(#020024, #0600c2);
+  --radialPrimarySecondary: radial-gradient(#3a31d8, #020024);
+  --radialPrimaryAccent: radial-gradient(#3a31d8, #0600c2);
+  --radialSecondaryAccent: radial-gradient(#020024, #0600c2);
+
+}
