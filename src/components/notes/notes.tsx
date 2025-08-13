@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { LoaderOne } from "../ui/loader";
+import Markdown from "react-markdown";
 
 interface NotesResponse {
   data: string;
@@ -31,11 +32,12 @@ export default function Notes({ videoId }: { videoId: string | undefined }) {
     fetchNotes();
   }, [fetchNotes]);
 
+  console.log(notes);
   return (
-    <div className="h-full overflow-hidden  -full w-full flex flex-col items-center justify-center gap-6 p-6 ">
+    <div className="h-full overflow-hidden w-full flex flex-col items-center justify-center gap-6 p-6 ">
       <div className="text-3xl font-bold">Notes</div>
-      <div className="w-full h-full bg-white rounded-2xl flex justify-center items-center">
-        {notes.length > 0 ? !error ? notes : error : <LoaderOne />}
+      <div className="w-full h-128 bg-white rounded-2xl flex flex-col justify-start items-center overflow-scroll p-4 gap-2">
+        {notes.length > 0 ? !error ? <Markdown>{notes}</Markdown> : error : <LoaderOne />}
       </div>
     </div>
   );

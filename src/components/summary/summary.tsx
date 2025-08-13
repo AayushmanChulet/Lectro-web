@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { LoaderOne } from "../ui/loader";
+import Markdown from "react-markdown";
 
 interface SummaryResponse {
   data: string;
@@ -43,9 +44,8 @@ export default function Summary({ videoId }: { videoId: string | undefined }) {
   return (
     <div className="h-full w-full flex flex-col items-center justify-center gap-6 p-6 ">
       <h2 className="text-3xl font-bold text-gray-800">Video Summary</h2>
-      <div className="w-full h-full bg-white rounded-2xl flex justify-center items-center">
-        {summary}
-        {summary.length > 0 ? !errors ? summary : errors : <LoaderOne />}
+      <div className="w-full h-128 bg-white rounded-2xl flex flex-col justify-start items-center overflow-scroll p-4 gap-2">
+        {summary.length > 0 ? !errors ? <Markdown>{summary}</Markdown> : errors : <LoaderOne />}
       </div>
     </div>
   );

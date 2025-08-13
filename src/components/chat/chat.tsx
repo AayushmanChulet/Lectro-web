@@ -2,23 +2,23 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import axios from "axios";
+import Markdown from "react-markdown";
 
 interface ChatMessage {
   party: "bot" | "user";
   message: string;
 }
 
-interface ChatResponse{
-    data : string
+interface ChatResponse {
+  data: string;
 }
 
-export default function Chat({videoId} : {videoId : string | undefined}) {
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+export default function Chat({ videoId }: { videoId: string | undefined }) {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       party: "bot",
-      message:
-        "Hello! How can I assist you today?",
+      message: "Hello! How can I assist you today?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -26,7 +26,8 @@ export default function Chat({videoId} : {videoId : string | undefined}) {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -42,20 +43,24 @@ export default function Chat({videoId} : {videoId : string | undefined}) {
     };
     const lastChats = messages.slice(-5);
     setMessages((prev) => [...prev, newMessage]);
-    const chatResponse  = await axios.post<ChatResponse>(`${BACKEND_URL}/api/v1/app/chat`, {
-            link : `https://www.youtube.com/watch?v=${videoId}`,
-            lastChats ,
-            currMessage : input
-        })
+    const chatResponse = await axios.post<ChatResponse>(
+      `${BACKEND_URL}/api/v1/app/chat`,
+      {
+        link: `https://www.youtube.com/watch?v=${videoId}`,
+        lastChats,
+        currMessage: input,
+      }
+    );
 
-        console.log(chatResponse.data)
-    setMessages((prev) => [...prev, {
-        party : "bot",
-        message : chatResponse.data.data,
-    }]);
+    console.log(chatResponse.data);
+    setMessages((prev) => [
+      ...prev,
+      {
+        party: "bot",
+        message: chatResponse.data.data,
+      },
+    ]);
     setInput("");
-
-    
   };
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -90,7 +95,7 @@ export default function Chat({videoId} : {videoId : string | undefined}) {
                   {chat.party === "bot" ? "Bot" : "You"}:
                 </strong>
               </div>
-              <p className="mt-1">{chat.message}</p>
+              <Markdown>{chat.message}</Markdown>
             </div>
           </div>
         ))}
