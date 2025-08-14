@@ -80,7 +80,7 @@ export default function FlashCard({
           error ? (
             <>
               {error}
-              <Button onClick={fetchCards} variant={"secondary"}>
+              <Button onClick={fetchCards} variant={"outline"} className="bg-red-500 hover:bg-red-700">
                 Reload
               </Button>
             </>
@@ -96,14 +96,14 @@ export default function FlashCard({
               </div>
               <div className="flex w-full justify-evenly items-center">
                 <Button
-                  variant={"outline"}
+                variant={"outline"}
                   className="w-32"
                   onClick={handlePrevCard}
                 >
                   Previous
                 </Button>
                 <Button
-                  variant={"outline"}
+                variant={"outline"}
                   className="w-32"
                   onClick={handleNextCard}
                 >
