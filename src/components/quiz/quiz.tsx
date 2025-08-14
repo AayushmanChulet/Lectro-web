@@ -114,10 +114,7 @@ export default function Quiz({ videoId }: { videoId: string | undefined }) {
             </div>
           ) : isDone ? (
             <div className="w-full flex flex-col items-center justify-center text-2xl gap-6 animate-fade-in">
-              <Confetti
-                ref={isDoneRef}
-                className="absolute  z-0 size-full"
-              >
+              <Confetti ref={isDoneRef} className="absolute  z-0 size-full">
                 You scored {score}/{quiz.length > 0 ? quiz.length : "-"}
               </Confetti>
             </div>
@@ -144,25 +141,37 @@ export default function Quiz({ videoId }: { videoId: string | undefined }) {
                 {quiz[currentQuestionIdx].question}
               </div>
               <div
-                className="grid grid-cols-2 gap-2 text-lg"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-lg"
                 role="region"
                 aria-label="Quiz question"
               >
-                {quiz[currentQuestionIdx].options.map((op, index) => (
-                  <label
-                    key={index}
-                    className="flex gap-3 p-2 bg-blue-200 rounded-xl items-center justify-start cursor-pointer"
-                  >
-                    <input
-                      type="radio"
-                      name={`question-${currentQuestionIdx}`}
-                      value={op.code}
-                      checked={optionSelected === op.code}
-                      onChange={() => handleOptionSelect(op.code)}
-                    />
-                    <span>{op.value}</span>
-                  </label>
-                ))}
+                {quiz[currentQuestionIdx].options.map((op, index) => {
+                  const isSelected = optionSelected === op.code;
+                  return (
+                    <label
+                      key={index}
+                      htmlFor={`option-${currentQuestionIdx}-${op.code}`} // ✅ Clicking text checks radio
+                      className={`flex gap-3 p-4 rounded-xl border-2 items-center justify-start cursor-pointer transition-all
+          ${
+            isSelected
+              ? "border-blue-500 bg-blue-100 shadow-md"
+              : "border-gray-300 bg-white hover:bg-gray-50"
+          }
+        `}
+                    >
+                      <input
+                        id={`option-${currentQuestionIdx}-${op.code}`} // ✅ Linked to label
+                        type="radio"
+                        name={`question-${currentQuestionIdx}`}
+                        value={op.code}
+                        checked={isSelected}
+                        onChange={() => handleOptionSelect(op.code)}
+                        className="accent-blue-500 w-5 h-5"
+                      />
+                      <span className="break-words">{op.value}</span>
+                    </label>
+                  );
+                })}
               </div>
               <Button variant={"outline"} onClick={handleSubmit}>
                 Submit

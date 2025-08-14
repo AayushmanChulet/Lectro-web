@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { Skeleton } from "@/components/ui/skeleton"
 import axios from "axios";
 import Markdown from "react-markdown";
+import WordFadeIn from "./wordFadein";
 
 interface ChatMessage {
   party: "bot" | "user";
   message: string;
+  isLoading?: boolean,
 }
 
 interface ChatResponse {
@@ -36,13 +39,13 @@ export default function Chat({ videoId }: { videoId: string | undefined }) {
       alert("Please enter a message.");
       return;
     }
-
+    setInput("");
     const newMessage: ChatMessage = {
       party: "user",
       message: input,
     };
     const lastChats = messages.slice(-5);
-    setMessages((prev) => [...prev, newMessage]);
+    setMessages((prev) => [...prev, newMessage, { party: "bot", message: "", isLoading: true }]);
     const chatResponse = await axios.post<ChatResponse>(
       `${BACKEND_URL}/api/v1/app/chat`,
       {
@@ -51,16 +54,20 @@ export default function Chat({ videoId }: { videoId: string | undefined }) {
         currMessage: input,
       }
     );
-
-    console.log(chatResponse.data);
-    setMessages((prev) => [
-      ...prev,
-      {
-        party: "bot",
-        message: chatResponse.data.data,
-      },
-    ]);
-    setInput("");
+    setMessages((prev) => {
+        const updated = [...prev];
+        const index = updated.findIndex(
+          (msg) => msg.party === "bot" && msg.isLoading
+        );
+        if (index !== -1) {
+          updated[index] = {
+            party: "bot",
+            message: chatResponse.data.data,
+            isLoading: false,
+          };
+        }
+        return updated;
+      });
   };
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -95,7 +102,16 @@ export default function Chat({ videoId }: { videoId: string | undefined }) {
                   {chat.party === "bot" ? "Bot" : "You"}:
                 </strong>
               </div>
-              <Markdown>{chat.message}</Markdown>
+              {chat.isLoading ? (
+                <div className="flex p-3 gap-2 flex-col">
+                  <Skeleton className="h-4 w-[250px] text-neutral-200" />
+                  <Skeleton className="h-4 w-[200px] text-neutral-200" />
+                </div>
+              ) : chat.party === "bot" ? (
+                <WordFadeIn text={chat.message} isActive={true} />
+              ) : (
+                <Markdown>{chat.message}</Markdown>
+              )}
             </div>
           </div>
         ))}

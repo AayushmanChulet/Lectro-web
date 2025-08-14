@@ -31,8 +31,6 @@ export default function Notes({ videoId }: { videoId: string | undefined }) {
   useEffect(() => {
     fetchNotes();
   }, [fetchNotes]);
-
-  console.log(notes);
   return (
     <div className="h-full overflow-hidden w-full flex flex-col items-center justify-center gap-6 p-6 ">
       <div className="text-3xl font-bold">Notes</div>
