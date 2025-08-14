@@ -32,10 +32,10 @@ export default function Landing() {
     navigate(`${id}`);
   };
   return (
-    <div className="min-h-screen text-text">
+    <div className="min-h-screen w-full overflow-x-hidden text-text">
       <main className="h-full">
         <section className="min-h-[95%] relative overflow-hidden">
-          <div className="container  mx-auto flex flex-col justify-center gap-30 items-center py-20 ">
+          <div className="container mx-auto flex flex-col justify-center gap-12 items-center py-20 px-4">
             <div className="flex flex-col items-center justify-center gap-10">
               <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full text-purple-800 text-sm font-medium mb-8 border border-purple-200">
                 <IconSparkles className="w-4 h-4 mr-2" />
@@ -43,21 +43,21 @@ export default function Landing() {
                 <div className="ml-2 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               </div>
               <div className="flex items-center justify-center flex-col gap-5">
-                <div className="text-7xl text-center poppins-medium">
+                <div className="text-4xl md:text-6xl lg:text-7xl text-center poppins-medium">
                   Your AI Teaching
                   <br /> Assistant
                 </div>
-                <div className="text-2xl w-2/3 text-center poppins-medium">
+                <div className="text-lg md:text-xl lg:text-2xl w-full max-w-4xl text-center poppins-medium px-4">
                   Transform any YouTube video into interactive study materials.
                   Get AI-generated flashcards, quizzes, summaries, and instant
                   answers to boost your learning efficiency.
                 </div>
               </div>
             </div>
-            <div className="flex gap-5">
-              <div className="relative ">
+            <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xl px-4">
+              <div className="relative flex-1">
                   <PlayCircle className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                  <Input aria-label="YouTube URL" placeholder="Paste YouTube URL" className="pl-10 rounded-2xl w-80" ref={inputRef}/>
+                  <Input aria-label="YouTube URL" placeholder="Paste YouTube URL" className="pl-10 rounded-2xl w-full" ref={inputRef}/>
                 </div>
                 <Button type="submit" variant={"outline"} className="shrink-0" onClick={handleTry}>Try Lectro</Button>
             </div>
