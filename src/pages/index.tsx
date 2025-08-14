@@ -16,6 +16,10 @@ export default function Landing() {
   const navigate = useNavigate();
 
   const handleTry = () => {
+    if(inputRef.current == null){
+      return
+    }
+
     if (
       !inputRef.current.value ||
       !inputRef.current.value.includes("youtube.com/watch")
@@ -55,7 +59,7 @@ export default function Landing() {
                   <PlayCircle className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                   <Input aria-label="YouTube URL" placeholder="Paste YouTube URL" className="pl-10 rounded-2xl w-80" ref={inputRef}/>
                 </div>
-                <Button variant="hero" type="submit" className="shrink-0" onClick={handleTry}>Try Lectro</Button>
+                <Button type="submit" variant={"outline"} className="shrink-0" onClick={handleTry}>Try Lectro</Button>
             </div>
           </div>
         </section>

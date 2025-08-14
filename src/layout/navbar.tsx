@@ -13,12 +13,6 @@ export default function NavBar() {
     }
 
     const location = useLocation()
-    
-    // if (path == "/"){
-    //     return 
-        
-    //   </header>
-    // }
 
     return <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-neutral-800">
         {location.pathname == '/'? <nav className="container mx-auto flex items-center justify-between py-4 text-xl ">
@@ -40,7 +34,7 @@ export default function NavBar() {
             </a>
           </div>
           <div className="flex items-center gap-3">
-            <Button asChild variant="hero" className="hover-scale">
+            <Button asChild variant="destructive" className="hover-scale outline">
               <a href="#try">Get started</a>
             </Button>
           </div>
