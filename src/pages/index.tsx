@@ -63,7 +63,18 @@ export default function Landing() {
             </div>
           </div>
         </section>
-
+          <section className=" h-full w-full flex items-center justify-center  overflow-hidden">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-1/2 rounded-2xl m-3"
+            >
+              <source src="/videos/Lectro-demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </section>
         <section id="faq" className="">
           <div className="container mx-auto py-16">
             <div className="text-center mb-8">

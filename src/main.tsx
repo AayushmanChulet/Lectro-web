@@ -9,6 +9,7 @@ import Layout from './layout/layout.tsx';
 import Lectro from './pages/lectro.tsx';
 import Landing from './pages/index.tsx';
 import ModeProvider from './context/modeProvider.tsx';
+import ScrollProvider from './components/layout/scrollProvider.tsx';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ModeProvider>
-      <RouterProvider router={router}/> 
+      <ScrollProvider>
+        <RouterProvider router={router}/> 
+      </ScrollProvider>
     </ModeProvider>
   </StrictMode>,
 )
